@@ -1,0 +1,19 @@
+.center-page-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    margin-top: 10px;
+}
+
+.page-button {
+    color: black;
+}
+
+.page-button:hover {
+    background-color: #d8adf1;
+}
+
+.page-active {
+    font-weight: bold;
+}

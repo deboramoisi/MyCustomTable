@@ -1,0 +1,39 @@
+<blockquote>{{ title }}</blockquote>
+
+<!-- 
+  Here we loop through the ColumnMap config and set the value of the 	<th> element to the be the value of the header property. We also show 	or hide the Action or Actions table head text based on the buttons input. 
+
+  For the <tr> we loop through the records data, then for each record we 	loop 	through the ColumnMap config and set the value of the 		<td> element to the be the value of the primaryKey property. We also 	add the appStyleCell directive and the formatCell pipe to give use more 	flexibility. The <td> buttons are also populated based on the buttons 	input. 
+ -->
+
+<table>
+  <thead>
+    <tr>
+      <th *ngFor="let map of columnMaps">{{ map.header }}</th>
+      <th *ngIf="buttons.length">{{ buttonHeader }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let record of recordsOnPage">
+      <td
+        *ngFor="let map of columnMaps"
+        [id]="map.header"
+        [appStyleCell]="record[map.primaryKey]"
+        [key]="map.primaryKey"
+      >
+        {{ map.format ? (record[map.primaryKey] | formatCell: map.format) : record[map.primaryKey] }}
+      </td>
+      <td *ngIf="buttons.length">
+        <button
+          *ngFor="let button of buttons"
+          (click)="bC(record, button.func, button.params)"
+          class="{{ button.class }}"
+        >
+          {{ button.title }}
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<app-pagination [totalRecords]="records.length" [recordsPerPage]="recordsPerPage" (onPageChange)="displayActivePage($event)"></app-pagination>
